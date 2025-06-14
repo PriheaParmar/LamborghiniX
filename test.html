@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Switcher with Active Button</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+      padding: 2rem;
+    }
+
+    img {
+      width: 300px;
+      height: auto;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .title {
+      margin-top: 1rem;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .description {
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+
+    .names {
+      margin-top: 2rem;
+    }
+
+    .names button {
+      padding: 0.5rem 1rem;
+      margin: 0 10px;
+      border: none;
+      background: #007bff;
+      color: white;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .names button.active {
+      background: #28a745; /* Green color for active */
+    }
+
+    .names button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Image Gallery</h2>
+
+  <img id="image" src="" alt="Gallery Image" onclick="nextImage()">
+  <div class="title" id="imageTitle"></div>
+  <div class="description" id="imageText"></div>
+
+  <div class="names">
+    <button onclick="showImage(0)" id="btn0">Mountains</button>
+    <button onclick="showImage(1)" id="btn1">Beach</button>
+    <button onclick="showImage(2)" id="btn2">Forest</button>
+  </div>
+
+  <script>
+    const images = [
+      {
+        src: "https://picsum.photos/id/1015/600/400",
+        title: "Mountains",
+        text: "Breathtaking mountain views and snowy peaks."
+      },
+      {
+        src: "https://picsum.photos/id/1016/600/400",
+        title: "Beach",
+        text: "Relaxing at the sunny beach with blue waters."
+      },
+      {
+        src: "https://picsum.photos/id/1018/600/400",
+        title: "Forest",
+        text: "Lush green forest full of peace and nature."
+      }
+    ];
+
+    let current = 0;
+
+    function showImage(index) {
+      current = index;
+      document.getElementById("image").src = images[current].src;
+      document.getElementById("imageTitle").textContent = images[current].title;
+      document.getElementById("imageText").textContent = images[current].text;
+
+      // Remove active class from all buttons
+      for (let i = 0; i < images.length; i++) {
+        document.getElementById("btn" + i).classList.remove("active");
+      }
+      // Add active class to the current button
+      document.getElementById("btn" + current).classList.add("active");
+    }
+
+    function nextImage() {
+      current = (current + 1) % images.length;
+      showImage(current);
+    }
+
+    // Load the first image initially
+    window.onload = () => showImage(0);
+  </script>
+
+</body>
+</html>
